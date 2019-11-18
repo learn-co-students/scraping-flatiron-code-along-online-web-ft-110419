@@ -1,3 +1,4 @@
+
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
@@ -23,12 +24,16 @@ class Scraper
   
   def get_courses
     doc = get_page
-    titles = doc.search('.posts-holder #course-grid > section > article > h2')
-
+    courses = doc.css('#course-grid > section > article')
   end 
  
   def make_courses
-
+    courses = get_courses
+        courses.map do |course|
+          title = course.css("h2").text
+          schedule = course.css("em").text
+          description = course.css("p").text
+        end
   end
   
   
