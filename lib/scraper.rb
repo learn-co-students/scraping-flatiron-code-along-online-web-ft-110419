@@ -1,4 +1,3 @@
-
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
@@ -23,17 +22,17 @@ class Scraper
   end
   
   def get_courses
-    doc = get_page
-    courses = doc.css('#course-grid > section > article')
+    get_page.css('#course-grid > section > article')
   end 
  
   def make_courses
-    courses = get_courses
-        courses.map do |course|
-          title = course.css("h2").text
-          schedule = course.css("em").text
-          description = course.css("p").text
+        get_courses.map do |cours|
+          course = Course.new
+          course.title = cours.css("h2").text
+          course.schedule = cours.css("em").text
+          course.description = cours.css("p").text
         end
+    
   end
   
   
